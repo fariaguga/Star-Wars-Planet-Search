@@ -3,26 +3,28 @@ import PlanetContext from '../context/PlanetContext';
 
 function BodyTable() {
   const { data } = useContext(PlanetContext);
-  // console.log(data);
+  const { filterByName: { searchName } } = useContext(PlanetContext);
+  console.log(searchName);
   return (
     <tbody>
-      {data.map((elemento) => (
-        <tr key={ elemento.name }>
-          <td>{elemento.name}</td>
-          <td>{elemento.rotation_period}</td>
-          <td>{elemento.orbital_period}</td>
-          <td>{elemento.diameter}</td>
-          <td>{elemento.climate}</td>
-          <td>{elemento.gravity}</td>
-          <td>{elemento.terrain}</td>
-          <td>{elemento.surface_water}</td>
-          <td>{elemento.population}</td>
-          <td>{elemento.films}</td>
-          <td>{elemento.created}</td>
-          <td>{elemento.edited}</td>
-          <td>{elemento.url}</td>
-        </tr>
-      ))}
+      {data.filter((e) => (e.name).toLowerCase().includes(searchName.toLowerCase()))
+        .map((item) => (
+          <tr key={ item.name }>
+            <td>{item.name}</td>
+            <td>{item.rotation_period}</td>
+            <td>{item.orbital_period}</td>
+            <td>{item.diameter}</td>
+            <td>{item.climate}</td>
+            <td>{item.gravity}</td>
+            <td>{item.terrain}</td>
+            <td>{item.surface_water}</td>
+            <td>{item.population}</td>
+            <td>{item.films}</td>
+            <td>{item.created}</td>
+            <td>{item.edited}</td>
+            <td>{item.url}</td>
+          </tr>
+        ))}
     </tbody>
   );
 }

@@ -4,6 +4,12 @@ import PlanetContext from './PlanetContext';
 
 function PlanetProvider({ children }) {
   const [data, setData] = useState([]);
+  const [searchName, setName] = useState('');
+
+  const filterByName = {
+    searchName,
+    setName,
+  };
 
   useEffect(() => {
     async function getDataFromApi() {
@@ -16,7 +22,7 @@ function PlanetProvider({ children }) {
   // console.log(data);
 
   return (
-    <PlanetContext.Provider value={ { data } }>
+    <PlanetContext.Provider value={ { data, filterByName } }>
       {children}
     </PlanetContext.Provider>
   );
