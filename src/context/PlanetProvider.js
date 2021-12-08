@@ -5,6 +5,25 @@ import PlanetContext from './PlanetContext';
 function PlanetProvider({ children }) {
   const [data, setData] = useState([]);
   const [searchName, setName] = useState('');
+  const [column, setColumn] = useState('population');
+  const [comparisson, setComparisson] = useState('maior que');
+  const [value, setValue] = useState(0);
+  const [button, setButton] = useState(false);
+
+  const generalFilter = {
+    filterByNumericValues: [
+      {
+        column,
+        setColumn,
+        comparisson,
+        setComparisson,
+        value,
+        setValue,
+        button,
+        setButton,
+      },
+    ],
+  };
 
   const filterByName = {
     searchName,
@@ -22,7 +41,7 @@ function PlanetProvider({ children }) {
   // console.log(data);
 
   return (
-    <PlanetContext.Provider value={ { data, filterByName } }>
+    <PlanetContext.Provider value={ { data, filterByName, generalFilter } }>
       {children}
     </PlanetContext.Provider>
   );
