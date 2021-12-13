@@ -4,6 +4,7 @@ import PlanetContext from '../context/PlanetContext';
 function Header() {
   const { filterByName: { searchName, setName } } = useContext(PlanetContext);
   const { generalFilter: { filterByNumericValues } } = useContext(PlanetContext);
+  const { options, deleteColumn } = useContext(PlanetContext);
   const {
     column,
     setColumn,
@@ -15,6 +16,11 @@ function Header() {
     setButton,
   } = filterByNumericValues[0];
   // console.log(column);
+
+  function handleClick() {
+    setButton(!button);
+    deleteColumn(column);
+  }
 
   return (
     <header>
@@ -34,11 +40,11 @@ function Header() {
         onChange={ (event) => setColumn(event.target.value) }
         value={ column }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        {options.map((e) => (
+          <option key={ e }>
+            {e}
+          </option>
+        ))}
       </select>
       <select
         data-testid="comparison-filter"
@@ -62,7 +68,7 @@ function Header() {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ () => (setButton(!button)) }
+        onClick={ () => handleClick() }
       >
         Filtrar 🎣
       </button>

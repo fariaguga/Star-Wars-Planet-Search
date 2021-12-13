@@ -9,6 +9,19 @@ function PlanetProvider({ children }) {
   const [comparisson, setComparisson] = useState('maior que');
   const [value, setValue] = useState(0);
   const [button, setButton] = useState(false);
+  const [options, setOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+
+  function deleteColumn(previousColumn) {
+    const columnOptions = [...options];
+    columnOptions.splice(columnOptions.indexOf(previousColumn), 1);
+    setOptions(columnOptions);
+  }
 
   const generalFilter = {
     filterByNumericValues: [
@@ -41,7 +54,15 @@ function PlanetProvider({ children }) {
   // console.log(data);
 
   return (
-    <PlanetContext.Provider value={ { data, filterByName, generalFilter } }>
+    <PlanetContext.Provider
+      value={ {
+        data,
+        filterByName,
+        generalFilter,
+        options,
+        deleteColumn,
+      } }
+    >
       {children}
     </PlanetContext.Provider>
   );
